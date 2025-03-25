@@ -21,6 +21,21 @@ final readonly class FullName
         return new self($firstName, $middleName, $lastName);
     }
 
+    public function getFirstName(): FirstName
+    {
+        return $this->firstName;
+    }
+
+    public function getMiddleName(): MiddleName|null
+    {
+        return $this->middleName;
+    }
+
+    public function getLastName(): LastName
+    {
+        return $this->lastName;
+    }
+
     public function toString(): string
     {
         return implode(

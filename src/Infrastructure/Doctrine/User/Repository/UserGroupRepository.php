@@ -22,7 +22,7 @@ final class UserGroupRepository extends ServiceEntityRepository implements Domai
 
 	public function getByUserGroupId(UserGroupId $userGroupId): UserGroup
 	{
-		$userGroup = $this->findOneBy(['user_group_id' => $userGroupId->toString()]);
+		$userGroup = $this->findOneBy(['columnUserGroupId' => $userGroupId->toString()]);
 		if (!$userGroup instanceof UserGroup) {
 			throw new UserGroupNotFoundException('user group id', $userGroupId->toString());
 		}
@@ -32,7 +32,7 @@ final class UserGroupRepository extends ServiceEntityRepository implements Domai
 
 	public function getBySlug(Slug $slug): UserGroup
 	{
-		$userGroup = $this->findOneBy(['slug' => $slug->toString()]);
+		$userGroup = $this->findOneBy(['columnSlug' => $slug->toString()]);
 		if (!$userGroup instanceof UserGroup) {
 			throw new UserGroupNotFoundException('slug', $slug->toString());
 		}

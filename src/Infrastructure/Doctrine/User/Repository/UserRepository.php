@@ -23,7 +23,7 @@ final class UserRepository extends ServiceEntityRepository implements DomainUser
 
 	public function getByUserId(UserId $userId): User
 	{
-		$user = $this->findOneBy(['user_id' => $userId->toString()]);
+		$user = $this->findOneBy(['columnUserId' => $userId->toString()]);
 		if (!$user instanceof User) {
 			throw new UserNotFoundException('user_id', $userId->toString());
 		}
@@ -33,7 +33,7 @@ final class UserRepository extends ServiceEntityRepository implements DomainUser
 
 	public function getByUsername(Username $username): User
 	{
-		$user = $this->findOneBy(['username' => $username->toString()]);
+		$user = $this->findOneBy(['columnUsername' => $username->toString()]);
 		if (!$user instanceof User) {
 			throw new UserNotFoundException('username', $username);
 		}
@@ -43,7 +43,7 @@ final class UserRepository extends ServiceEntityRepository implements DomainUser
 
 	public function getByUserGroup(UserGroup $userGroup): array
 	{
-		return $this->findBy(['user_group' => $userGroup]);
+		return $this->findBy(['userGroup' => $userGroup]);
 	}
 
 	public function store(User $user): void
