@@ -4,13 +4,18 @@ declare(strict_types=1);
 
 namespace App\Domain\User\ValueObject;
 
-final class Username
+final readonly class Username
 {
-    public function __construct(private string $username)
+    private function __construct(private string $username)
     {
     }
 
-    public function getUsername(): string
+    public static function fromString(string $username): self
+    {
+        return new self($username);
+    }
+
+    public function toString(): string
     {
         return $this->username;
     }

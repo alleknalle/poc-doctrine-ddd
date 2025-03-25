@@ -5,22 +5,19 @@ declare(strict_types=1);
 namespace App\Domain\User\Entity;
 
 use App\Domain\Shared\ValueObject\UserId;
-use App\Domain\User\ValueObject\Name;
+use App\Domain\User\ValueObject\Address;
+use App\Domain\User\ValueObject\FullName;
 use App\Domain\User\ValueObject\Username;
 
 final class User
 {
-    // private string $userGroupId;
-
     public function __construct(
         private UserId $userId,
         private Username $username,
-        private Name $name,
+        private FullName $fullName,
+        private Address $address,
         private UserGroup $userGroup,
-        // UserGroup $userGroup
-    )
-    {
-        // $this->userGroupId = $userGroup->getId();
+    ) {
     }
 
     public function getUserId(): UserId
@@ -33,9 +30,14 @@ final class User
         return $this->username;
     }
 
-    public function getName(): Name
+    public function getFullName(): FullName
     {
-        return $this->name;
+        return $this->fullName;
+    }
+
+    public function getAddress(): Address
+    {
+        return $this->address;
     }
 
     public function getUserGroup(): UserGroup
@@ -45,15 +47,15 @@ final class User
 
     public function update(
         Username $username,
-        Name $name,
+        FullName $fullName,
     ): void {
         $this->username = $username;
-        $this->name = $name;
+        $this->fullName = $fullName;
     }
 
-    // public function getUserGroupId(): string
-    // {
-    //     return $this->userGroupId;
-    // }
+    public function updateAddress(Address $address): void
+    {
+        $this->address = $address;
+    }
 
 }

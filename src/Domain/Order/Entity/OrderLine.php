@@ -4,18 +4,27 @@ declare(strict_types=1);
 
 namespace App\Domain\Order\Entity;
 
-use App\Domain\Order\ValueObject\Money;
-use App\Domain\Order\ValueObject\Name;
+use App\Domain\Order\ValueObject\Amount;
 use App\Domain\Order\ValueObject\OrderLineId;
+use App\Domain\Product\ValueObject\Cents;
+use App\Domain\Product\ValueObject\Name;
+use App\Domain\Product\ValueObject\Price;
+use App\Domain\Shared\ValueObject\ProductId;
 
 final class OrderLine
 {
+    private Price $totalPrice;
+
     public function __construct(
         private Order $order,
         private OrderLineId $orderLineId,
-        private Name $name,
-        private Money $price,
+        private ProductId $productId,
+        private Name $productName,
+        private Price $productPrice,
+        private Amount $amount,
     ) {
+        $this->calculateTotalPrice();
+        $this->order->addOrderLine($this);
     }
 
     public function getOrder(): Order
@@ -28,13 +37,33 @@ final class OrderLine
         return $this->orderLineId;
     }
 
-    public function getName(): Name
+    public function getProductId(): ProductId
     {
-        return $this->name;
+        return $this->productId;
     }
 
-    public function getPrice(): Money
+    public function getProductName(): Name
     {
-        return $this->price;
+        return $this->productName;
+    }
+
+    public function getProductPrice(): Price
+    {
+        return $this->productPrice;
+    }
+
+    public function getAmount(): Amount
+    {
+        return $this->amount;
+    }
+
+    public function getTotalPrice(): Price
+    {
+        return $this->totalPrice;
+    }
+
+    private function calculateTotalPrice(): void
+    {
+        $this->totalPrice = Price::fromCurrencyAndCents($this->productPrice->getCurrency(), Cents::fromInt($this->productPrice->getCents()->toInt() * $this->amount->toInt()));
     }
 }

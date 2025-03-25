@@ -4,13 +4,18 @@ declare(strict_types=1);
 
 namespace App\Domain\User\ValueObject;
 
-final class Slug
+final readonly class Slug
 {
-    public function __construct(private string $slug)
+    private function __construct(private string $slug)
     {
     }
 
-    public function getSlug(): string
+    public static function fromString(string $slug): self
+    {
+        return new self($slug);
+    }
+
+    public function toString(): string
     {
         return $this->slug;
     }

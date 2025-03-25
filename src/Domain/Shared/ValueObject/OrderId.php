@@ -4,13 +4,18 @@ declare(strict_types=1);
 
 namespace App\Domain\Shared\ValueObject;
 
-final class OrderId
+final readonly class OrderId
 {
-    public function __construct(private string $userId)
+    private function __construct(private string $userId)
     {
     }
 
-    public function getUserId(): string
+    public static function fromString(string $userId): self
+    {
+        return new self($userId);
+    }
+
+    public function toString(): string
     {
         return $this->userId;
     }

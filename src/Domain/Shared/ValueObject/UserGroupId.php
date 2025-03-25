@@ -4,13 +4,18 @@ declare(strict_types=1);
 
 namespace App\Domain\Shared\ValueObject;
 
-final class UserGroupId
+final readonly class UserGroupId
 {
-    public function __construct(private string $userGroupId)
+    private function __construct(private string $userGroupId)
     {
     }
 
-    public function getUserGroupId(): string
+    public static function fromString(string $userGroupId): self
+    {
+        return new self($userGroupId);
+    }
+
+    public function toString(): string
     {
         return $this->userGroupId;
     }

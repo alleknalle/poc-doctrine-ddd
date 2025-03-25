@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Domain\User\ValueObject;
 
-final readonly class Name
+final readonly class FirstName
 {
     private function __construct(private string $name)
     {
