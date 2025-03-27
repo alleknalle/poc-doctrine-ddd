@@ -8,7 +8,7 @@ use App\Domain\Product\ValueObject\Name;
 use App\Domain\Product\ValueObject\Price;
 use App\Domain\Shared\ValueObject\ProductId;
 
-final class Product
+class Product
 {
     public function __construct(
         private ProductId $productId,

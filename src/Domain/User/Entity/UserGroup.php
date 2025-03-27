@@ -8,7 +8,7 @@ use App\Domain\Shared\ValueObject\UserGroupId;
 use App\Domain\User\ValueObject\Name;
 use App\Domain\User\ValueObject\Slug;
 
-final class UserGroup
+class UserGroup
 {
     public function __construct(
         private UserGroupId $userGroupId,

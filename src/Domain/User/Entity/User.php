@@ -9,7 +9,7 @@ use App\Domain\User\ValueObject\Address;
 use App\Domain\User\ValueObject\FullName;
 use App\Domain\User\ValueObject\Username;
 
-final class User
+class User
 {
     public function __construct(
         private UserId $userId,

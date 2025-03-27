@@ -11,7 +11,7 @@ use App\Domain\Product\ValueObject\Name;
 use App\Domain\Product\ValueObject\Price;
 use App\Domain\Shared\ValueObject\ProductId;
 
-final class OrderLine
+class OrderLine
 {
     private Price $totalPrice;
 

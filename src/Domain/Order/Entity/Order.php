@@ -13,7 +13,7 @@ use App\Domain\User\ValueObject\Address;
 use App\Domain\User\ValueObject\FullName;
 use App\Domain\User\ValueObject\Username;
 
-final class Order
+class Order
 {
     private array $orderLines = [];
     private Price $totalPrice;
