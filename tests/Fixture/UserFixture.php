@@ -24,75 +24,78 @@ use Doctrine\Persistence\ObjectManager;
 
 final class UserFixture extends AbstractFixture implements DependentFixtureInterface
 {
-	public function load(ObjectManager $manager): void
-	{
-		$scientaUser = new User(
-			UserId::fromString('user1'),
-			Username::fromString('scienta'),
-			FullName::fromNames(
-				FirstName::fromString('Scienta'),
-				null,
-				LastName::fromString('B.V.')
-			),
-			Address::fromAddressLines(
-				Street::fromString('Stephensonstraat 31'),
-				HouseNumber::fromString('31'),
-				PostalCode::fromString('3846 AK'),
-				City::fromString('Harderwijk'),
-				CountryCode::NL
-			),
-			$this->getReference(UserGroupFixture::ADMIN, UserGroup::class),
-		);
+    public function load(ObjectManager $manager): void
+    {
+        $scientaUser = new User(
+            UserId::fromString('user1'),
+            Username::fromString('scienta'),
+            FullName::fromNames(
+                FirstName::fromString('Scienta'),
+                null,
+                LastName::fromString('B.V.')
+            ),
+            Address::fromAddressLines(
+                Street::fromString('Stephensonstraat'),
+                HouseNumber::fromString('31'),
+                PostalCode::fromString('3846 AK'),
+                City::fromString('Harderwijk'),
+                CountryCode::NL
+            ),
+            true,
+            $this->getReference(UserGroupFixture::ADMIN, UserGroup::class),
+        );
 
-		$manager->persist($scientaUser);
+        $manager->persist($scientaUser);
 
-		$jilleUser = new User(
-			UserId::fromString('user2'),
-			Username::fromString('alleknalle'),
-			FullName::fromNames(
-				FirstName::fromString('Jille'),
-				MiddleName::fromString('van'),
-				LastName::fromString('Behm')
-			),
-			Address::fromAddressLines(
-				Street::fromString('Teststraat'),
-				HouseNumber::fromString('2'),
-				PostalCode::fromString('1111VG'),
-				City::fromString('Drielanden'),
-				CountryCode::NL
-			),
-			$this->getReference(UserGroupFixture::MANAGER, UserGroup::class),
-		);
+        $jilleUser = new User(
+            UserId::fromString('user2'),
+            Username::fromString('alleknalle'),
+            FullName::fromNames(
+                FirstName::fromString('Jille'),
+                MiddleName::fromString('van'),
+                LastName::fromString('Behm')
+            ),
+            Address::fromAddressLines(
+                Street::fromString('Teststraat'),
+                HouseNumber::fromString('2'),
+                PostalCode::fromString('1111VG'),
+                City::fromString('Drielanden'),
+                CountryCode::NL
+            ),
+            false,
+            $this->getReference(UserGroupFixture::MANAGER, UserGroup::class),
+        );
 
-		$manager->persist($jilleUser);
+        $manager->persist($jilleUser);
 
-		$malaysiaUser = new User(
-			UserId::fromString('user3'),
-			Username::fromString('malaysia'),
-			FullName::fromNames(
-				FirstName::fromString('Malaysia'),
-				null,
-				LastName::fromString('Office')
-			),
-			Address::fromAddressLines(
-				Street::fromString('CoPlace'),
-				HouseNumber::fromString('1'),
-				PostalCode::fromString('2270'),
-				City::fromString('Jalan Usahawan'),
-				CountryCode::DE
-			),
-			$this->getReference(UserGroupFixture::MANAGER, UserGroup::class),
-		);
+        $malaysiaUser = new User(
+            UserId::fromString('user3'),
+            Username::fromString('malaysia'),
+            FullName::fromNames(
+                FirstName::fromString('Malaysia'),
+                null,
+                LastName::fromString('Office')
+            ),
+            Address::fromAddressLines(
+                Street::fromString('CoPlace'),
+                HouseNumber::fromString('1'),
+                PostalCode::fromString('2270'),
+                City::fromString('Jalan Usahawan'),
+                CountryCode::DE
+            ),
+            true,
+            $this->getReference(UserGroupFixture::MANAGER, UserGroup::class),
+        );
 
-		$manager->persist($malaysiaUser);
+        $manager->persist($malaysiaUser);
 
-		$manager->flush();
-	}
+        $manager->flush();
+    }
 
-	public function getDependencies(): array
-	{
-		return [
-			UserGroupFixture::class,
-		];
-	}
+    public function getDependencies(): array
+    {
+        return [
+            UserGroupFixture::class,
+        ];
+    }
 }

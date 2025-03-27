@@ -52,4 +52,9 @@ final readonly class Address
         return $this->countryCode;
     }
 
+    public function toString(): string
+    {
+        return $this->street->toString() . ' ' . $this->houseNumber->toString() . ', ' . $this->postalCode->toString() . ' ' . $this->city->toString() . ', ' . $this->countryCode->name;
+    }
+
 }

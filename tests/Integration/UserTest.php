@@ -51,6 +51,7 @@ final class UserTest extends KernelTestCase
 	{
 		$this->databaseTool->loadFixtures([]);
 
+		/** @var UserGroupRepository $userGroupRepo */
 		$userGroupRepo = self::getContainer()->get(UserGroupRepository::class);
 
 		$adminUserGroup = new UserGroup(
@@ -61,6 +62,7 @@ final class UserTest extends KernelTestCase
 
 		$userGroupRepo->store($adminUserGroup);
 
+		/** @var UserRepository $userRepo */
 		$userRepo = self::getContainer()->get(UserRepository::class);
 
 		$user = new User(
@@ -73,11 +75,12 @@ final class UserTest extends KernelTestCase
 			),
 			Address::fromAddressLines(
 				Street::fromString('Teststraat'),
-				HouseNumber::fromString('2'),
+				HouseNumber::fromString('2abc'),
 				PostalCode::fromString('1111VG'),
 				City::fromString('Drielanden'),
 				CountryCode::NL
 			),
+			true,
 			$adminUserGroup
 		);
 		$userRepo->store($user);
@@ -91,17 +94,44 @@ final class UserTest extends KernelTestCase
 				LastName::fromString('B.V.')
 			),
 			Address::fromAddressLines(
-				Street::fromString('Stephensonstraat 31'),
+				Street::fromString('Stephensonstraat'),
 				HouseNumber::fromString('31'),
 				PostalCode::fromString('3846 AK'),
 				City::fromString('Harderwijk'),
 				CountryCode::NL
 			),
+			false,
 			$adminUserGroup,
 		);
 		$userRepo->store($user2);
 
-		$this->expectNotToPerformAssertions();
+		/** @var EntityManager $erm */
+		$erm = self::getContainer()->get('doctrine.orm.entity_manager');
+		$erm->clear();
+
+		$storedAdminUserGroup = $userGroupRepo->getByUserGroupId(UserGroupId::fromString('group1'));
+
+		self::assertSame('group1', $storedAdminUserGroup->getUserGroupId()->toString());
+		self::assertSame('admin', $storedAdminUserGroup->getSlug()->toString());
+		self::assertSame('Administrator', $storedAdminUserGroup->getName()->toString());
+
+		$storedUser = $userRepo->getByUserId(UserId::fromString('user1'));
+
+		self::assertSame('user1', $storedUser->getUserId()->toString());
+		self::assertSame('alleknalle', $storedUser->getUsername()->toString());
+		self::assertSame('Jille van Behm', $storedUser->getFullName()->toString());
+		self::assertSame('Teststraat 2abc, 1111VG Drielanden, NL', $storedUser->getAddress()->toString());
+		self::assertSame(true, $storedUser->isActive());
+		self::assertSame($storedAdminUserGroup, $storedUser->getUserGroup());
+
+		$storedUser2 = $userRepo->getByUserId(UserId::fromString('user2'));
+
+		self::assertSame('user2', $storedUser2->getUserId()->toString());
+		self::assertSame('scienta', $storedUser2->getUsername()->toString());
+		self::assertSame('Scienta B.V.', $storedUser2->getFullName()->toString());
+		self::assertSame('Stephensonstraat 31, 3846 AK Harderwijk, NL', $storedUser2->getAddress()->toString());
+		self::assertSame(false, $storedUser2->isActive());
+		self::assertSame($storedAdminUserGroup, $storedUser2->getUserGroup());
 	}
 
 	public function testGetUsersAndGroups(): void
@@ -117,6 +147,8 @@ final class UserTest extends KernelTestCase
 		self::assertSame('user1', $adminUser->getUserId()->toString());
 		self::assertSame('scienta', $adminUser->getUsername()->toString());
 		self::assertSame('Scienta B.V.', $adminUser->getFullName()->toString());
+		self::assertSame('Stephensonstraat 31, 3846 AK Harderwijk, NL', $adminUser->getAddress()->toString());
+		self::assertSame(true, $adminUser->isActive());
 
 		self::assertSame('group1', $adminUser->getUserGroup()->getUserGroupId()->toString());
 		self::assertSame('admin', $adminUser->getUserGroup()->getSlug()->toString());
@@ -158,6 +190,6 @@ final class UserTest extends KernelTestCase
 
 		$updatedAdminUser = $userRepo->getByUserId(UserId::fromString('user1'));
 
-		$this->assertSame('nieuwe-naam', $updatedAdminUser->getUsername()->toString());
+		self::assertSame('nieuwe-naam', $updatedAdminUser->getUsername()->toString());
 	}
 }
