@@ -16,6 +16,7 @@ final class User
         private Username $username,
         private FullName $fullName,
         private Address $address,
+        private bool $active,
         private UserGroup $userGroup,
     ) {
     }
@@ -43,6 +44,11 @@ final class User
     public function getUserGroup(): UserGroup
     {
         return $this->userGroup;
+    }
+
+    public function isActive(): bool
+    {
+        return $this->active;
     }
 
     public function update(

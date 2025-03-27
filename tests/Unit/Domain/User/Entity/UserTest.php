@@ -48,6 +48,7 @@ final class UserTest extends TestCase
                 City::fromString('Harderwijk'),
                 CountryCode::NL
             ),
+            true,
             $group
         );
 
