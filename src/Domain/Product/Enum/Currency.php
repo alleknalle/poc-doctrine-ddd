@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Domain\Product\Enum;
 
-enum Currency
+enum Currency: string
 {
-    case EURO;
-    case USD;
+    case EURO = 'euro';
+    case USD = 'usd';
 }

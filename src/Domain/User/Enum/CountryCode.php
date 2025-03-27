@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace App\Domain\User\Enum;
 
-enum CountryCode
+enum CountryCode: string
 {
-    case NL;
-    case BE;
-    case FR;
-    case DE;
+    case NL = 'nl';
+    case BE = 'be';
+    case FR = 'fr';
+    case DE = 'de';
 }
