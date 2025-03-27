@@ -1,0 +1,13 @@
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:noNamespaceSchemaLocation="https://www.doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+
+    <embeddable name="App\Domain\User\ValueObject\Address">
+        <embedded name="street" class="App\Domain\User\ValueObject\Street" use-column-prefix="false"/>
+        <embedded name="houseNumber" class="App\Domain\User\ValueObject\HouseNumber" use-column-prefix="false"/>
+        <embedded name="postalCode" class="App\Domain\User\ValueObject\PostalCode" use-column-prefix="false"/>
+        <embedded name="city" class="App\Domain\User\ValueObject\City" use-column-prefix="false"/>
+        <field name="countryCode" column="country_code" length="10"/>
+    </embeddable>
+
+</doctrine-mapping>

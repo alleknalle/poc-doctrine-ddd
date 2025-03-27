@@ -18,12 +18,18 @@ doctrine:
       Doctrine\DBAL\Platforms\MySQL57Platform: identity
     auto_mapping: true
     mappings:
-      App:
-        type: attribute
+      App\Domain\Shared:
+        type: xml
         is_bundle: false
-        dir: '%kernel.project_dir%/src/Domain'
-        prefix: 'App\Domain'
-        alias: App
+        dir: '%kernel.project_dir%/config/doctrine/orm/shared'
+        prefix: 'App\Domain\Shared'
+        alias: Shared
+      App\Domain\User:
+        type: xml
+        is_bundle: false
+        dir: '%kernel.project_dir%/config/doctrine/orm/user'
+        prefix: 'App\Domain\User'
+        alias: User
     controller_resolver:
       auto_mapping: false
 

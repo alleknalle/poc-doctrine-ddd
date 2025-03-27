@@ -4,7 +4,12 @@ declare(strict_types=1);
 
 namespace App\Domain\User\ValueObject;
 
-final readonly class FullName
+/**
+ * @todo removed readonly because it doesn't get hydrated correctly
+ *
+ * @see App\Infrastructure\Doctrine\Subscriber\ValueObjectLifeCycleSubscriber::checkObject
+ */
+final class FullName
 {
     private function __construct(
         private FirstName $firstName,
