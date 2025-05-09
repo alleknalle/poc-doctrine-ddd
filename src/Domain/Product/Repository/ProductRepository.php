@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Domain\Product\Repository;
 
-use App\Domain\Product\Entity\Product;
-use App\Domain\Shared\ValueObject\ProductId;
+use App\Domain\Entity\Ids\ProductId;
+use App\Domain\Entity\Product;
 
 interface ProductRepository
 {
