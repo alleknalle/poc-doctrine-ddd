@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Domain\Order\Repository;
 
-use App\Domain\Order\Entity\Order;
-use App\Domain\Shared\ValueObject\OrderId;
+use App\Domain\Entity\Ids\OrderId;
+use App\Domain\Entity\Order;
 
 interface OrderRepository
 {

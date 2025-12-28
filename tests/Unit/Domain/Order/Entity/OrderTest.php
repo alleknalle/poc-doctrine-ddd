@@ -4,28 +4,28 @@ declare(strict_types=1);
 
 namespace App\Tests\Unit\Domain\Order\Entity;
 
-use App\Domain\Order\Entity\Order;
-use App\Domain\Order\Entity\OrderLine;
-use App\Domain\Order\ValueObject\Amount;
-use App\Domain\Order\ValueObject\OrderLineId;
-use App\Domain\Product\Enum\Currency;
-use App\Domain\Product\ValueObject\Cents;
+use App\Domain\Entity\Ids\OrderId;
+use App\Domain\Entity\Ids\OrderLineId;
+use App\Domain\Entity\Ids\ProductId;
+use App\Domain\Entity\Ids\UserId;
+use App\Domain\Entity\Order;
+use App\Domain\Entity\OrderLine;
 use App\Domain\Product\ValueObject\Name;
-use App\Domain\Product\ValueObject\Price;
-use App\Domain\Shared\ValueObject\OrderId;
-use App\Domain\Shared\ValueObject\ProductId;
-use App\Domain\Shared\ValueObject\UserId;
-use App\Domain\User\Enum\CountryCode;
-use App\Domain\User\ValueObject\Address;
 use App\Domain\User\ValueObject\City;
 use App\Domain\User\ValueObject\FirstName;
 use App\Domain\User\ValueObject\FullName;
-use App\Domain\User\ValueObject\HouseNumber;
 use App\Domain\User\ValueObject\LastName;
 use App\Domain\User\ValueObject\MiddleName;
-use App\Domain\User\ValueObject\PostalCode;
 use App\Domain\User\ValueObject\Street;
 use App\Domain\User\ValueObject\Username;
+use App\Domain\ValueObject\Address;
+use App\Domain\ValueObject\Amount;
+use App\Domain\ValueObject\Cents;
+use App\Domain\ValueObject\CountryCode;
+use App\Domain\ValueObject\Currency;
+use App\Domain\ValueObject\HouseNumber;
+use App\Domain\ValueObject\PostalCode;
+use App\Domain\ValueObject\Price;
 use PHPUnit\Framework\TestCase;
 
 final class OrderTest extends TestCase
